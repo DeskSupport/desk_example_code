@@ -16,12 +16,10 @@ require 'yaml'
 BASE_PATH = Pathname.new(File.expand_path('../', __FILE__))
 AUTH      = YAML.load_file(BASE_PATH.join('credentials.yml'))
 
-# The 'desk' method below returns the client that we will use to issue requests
-# to the Desk API
-def desk
-  @desk ||= DeskApi::Client.new(DESK_API)
+# Configure DeskApi
+DeskApi.configure do |config|
+  AUTH.each { |k,v| config.send("#{k}=", v) }
 end
-
 
 def method_to_be_called_by_task
   puts "Normally this would be a custom script, but hey, this is just a template"
