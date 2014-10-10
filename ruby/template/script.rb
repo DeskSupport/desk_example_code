@@ -7,7 +7,6 @@ require 'yaml'
 # require stdlib modules here. added some common ones below that can just
 # be uncommented.
 
-# require 'yaml'
 # require 'csv'
 # require 'rexml'
 # require 'fileutils'
