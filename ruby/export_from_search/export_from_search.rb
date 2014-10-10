@@ -14,6 +14,12 @@ require 'csv'
 # require 'fileutils'
 
 
+# Set this to true to include interactions data (Inbound Messages, Outbound Messages, etc.)
+# NOTE: Including interactions data significantly slows down the import.
+INCLUDE_INTERACTIONS_DATA = false
+
+
+
 BASE_PATH = Pathname.new(File.expand_path('../', __FILE__))
 AUTH      = YAML.load_file(BASE_PATH.join('credentials.yml'))
 
@@ -89,38 +95,44 @@ class Ticket
           'Resolved At'            => '.resolved_at',
           'Labels'                 => '.labels.entries.map { |l| l.name }.join(", ") if ticket.labels.entries.any?',
           'Language'               => '.language',
-          'Body'                   => '.message.body'
+          'Body'                   => '.message.body rescue nil'
         }.each do |field, op|
-          data[field] = eval("ticket#{op}")
+          begin
+            data[field] = eval("ticket#{op}")
+          rescue DeskApi::Error::NotFound
+            data[field] = nil
+          end
         end
 
-        replies = []
-        ticket.
-          replies.
-          per_page(100).
-          all { |r| replies.push(r.to_hash) unless ['failed', 'draft'].include?(r.status) }
+        if INCLUDE_INTERACTIONS_DATA == true
+          replies = []
+          ticket.
+            replies.
+            per_page(100).
+            all { |r| replies.push(r.to_hash) unless ['failed', 'draft'].include?(r.status) }
 
-        {
-          'Inbound Messages'       => '.count { |reply| reply["direction"] == "in" } || 0',
-          'Outbound Messages'      => '.count { |reply| reply["direction"] == "out" } || 0',
-          'Last In'                => '.select { |r| r["direction"] == "in" }.map { |r| r["updated_at"] }.max',
-          'Last Out'               => '.select { |r| r["direction"] == "out" }.map { |r| r["updated_at"] }.max',
-          'Last Message Direction' => '.max_by { |r| r["updated_at"] }["direction"]',
-          'Time of First Response' => '.select { |r| r["direction"] == "out" }.map { |r| r["updated_at"] }.min'
-        }.each do |field, op|
-          data[field] = eval("replies#{op}") rescue nil
-        end
+          {
+            'Inbound Messages'       => '.count { |reply| reply["direction"] == "in" } || 0',
+            'Outbound Messages'      => '.count { |reply| reply["direction"] == "out" } || 0',
+            'Last In'                => '.select { |r| r["direction"] == "in" }.map { |r| r["updated_at"] }.max',
+            'Last Out'               => '.select { |r| r["direction"] == "out" }.map { |r| r["updated_at"] }.max',
+            'Last Message Direction' => '.max_by { |r| r["updated_at"] }["direction"]',
+            'Time of First Response' => '.select { |r| r["direction"] == "out" }.map { |r| r["updated_at"] }.min'
+          }.each do |field, op|
+            data[field] = eval("replies#{op}") rescue nil
+          end
 
-        data['Last Message Direction'] ||= ticket.message.direction
+          data['Last Message Direction'] ||= ticket.message.direction
 
-        if ticket.message.direction == 'in'
-          data['Inbound Messages'] += 1
-          data['Last In'] ||= ticket.message.updated_at
-        else
-          data['Outbound Messages'] += 1
-          data['Last Out'] ||= ticket.message.updated_at
-          if (data['Time of First Response'] ||= ticket.message.updated_at) > ticket.message.updated_at
-            data['Time of First Response'] = ticket.message.updated_at
+          if ticket.message.direction == 'in'
+            data['Inbound Messages'] += 1
+            data['Last In'] ||= ticket.message.updated_at
+          else
+            data['Outbound Messages'] += 1
+            data['Last Out'] ||= ticket.message.updated_at
+            if (data['Time of First Response'] ||= ticket.message.updated_at) > ticket.message.updated_at
+              data['Time of First Response'] = ticket.message.updated_at
+            end
           end
         end
 
