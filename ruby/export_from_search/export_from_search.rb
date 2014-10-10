@@ -119,7 +119,7 @@ class Ticket
         else
           data['Outbound Messages'] += 1
           data['Last Out'] ||= ticket.message.updated_at
-          if data['Time of First Response'] > ticket.message.updated_at
+          if (data['Time of First Response'] ||= ticket.message.updated_at) > ticket.message.updated_at
             data['Time of First Response'] = ticket.message.updated_at
           end
         end
