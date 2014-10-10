@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'desk_api', '~> 0.6.1'
+gem 'thor'
+gem 'progress_bar'
+
+# following gems only necessary for development
+gem 'pry'
+gem 'pry-awesome_print'
+gem 'pry-coolline'
