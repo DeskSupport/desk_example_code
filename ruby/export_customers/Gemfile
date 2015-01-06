@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'desk_api', '~> 0.6.1'
+gem 'thor'
+gem 'ruby-progressbar'
+gem 'pry'
