@@ -1,3 +1,9 @@
+
+credentials.yml
+
+# Created by https://www.gitignore.io
+
+### Ruby ###
 *.gem
 *.rbc
 /.config
@@ -26,15 +32,102 @@ build/
 
 # for a library or gem, you might want to ignore these files since the code is
 # intended to run in multiple environments; otherwise, check them in:
-Gemfile.lock
+# Gemfile.lock
 # .ruby-version
 # .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+
+#!! ERROR:  is undefined. Use list command to see defined gitignore types !!#
+
 ### Linux ###
 *~
+
+# KDE directory preferences
+.directory
+
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
 
 ### vim ###
@@ -45,4 +138,74 @@ Session.vim
 .netrwhist
 *~
 
-credentials.yml
+
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+
+### Emacs ###
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# eshell files
+/eshell/history
+/eshell/lastdir
+
+# elpa packages
+/elpa/
+
+# reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/
+
+# cask packages
+.cask/
+
+
+### nanoc ###
+# For projects using nanoc (http://nanoc.ws/)
+
+# Default location for output, needs to match output_dir's value found in config.yaml
+output/
+
+# Temporary file directory
+tmp/
+
+# Crash Log
+crash.log
+
+
+### TextMate ###
+*.tmproj
+*.tmproject
+tmtags
+
