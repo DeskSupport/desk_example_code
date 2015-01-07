@@ -1,4 +1,4 @@
-desk_api_scripts
+Desk.com Code Examples
 ================
 
-Example scripts for interacting with the Desk.com API in various capacities
+Example scripts and snippets for customizing Desk.com themes and interacting with the API
