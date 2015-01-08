@@ -1,0 +1,47 @@
+<div id="Popular">
+  <h3>Popular Articles</h3>
+  <ul></ul>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        count = 0;
+        // ADD QUERY KEYWORD TO THE ARTICLES YOU WANT TO SHOW HERE
+        query = "HomeMostPopular";
+       $.ajax({
+              url: '//' + document.domain.toString() + '/customer/portal/articles/autocomplete?term=' + query,
+              dataType: 'json'
+              }).done(CLIENTSapiSuccess).fail(CLIENTSapiFail);
+        });
+
+        CLIENTSapiSuccess = function(data) {
+          auto_suggest_content = "";
+          auto_suggest_articles = "";
+          auto_suggest_questions = "";
+
+          $.each(data, function() {
+            var html = $(this.label);
+              article_title = html.find(".article-autocomplete-subject").html();
+              article_text = html.find(".article-autocomplete-body").html();
+              article_preview = jQuery.trim(article_text).substring(0, 35)
+                              .trim(this) + "...";
+
+            if (this.id.indexOf("questions") !== -1) {
+              auto_suggest_questions += '<li><a href="' + this.id + '">' + article_title + '</a></li>';
+            } else {
+              auto_suggest_articles += '<li><a href="' + this.id + '">' + article_title + '</a></li>';
+            }
+            count++;
+          });
+
+          if (count > 0) {
+            $('#Popular ul').append(auto_suggest_articles + auto_suggest_questions);
+            $("#Popular").removeClass('hide');
+          } else {
+            $("#Popular").addClass('hide');
+          }
+        };
+
+        CLIENTSapiFail = function(data) {
+
+        };
+    </script>
+</div>
