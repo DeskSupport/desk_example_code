@@ -1,0 +1,32 @@
+  <!-- INSIDE TOPIC/ARTICLE PAGE SIDEBAR NAV -->
+  {% if page == "page_article" or page =="page_topic" %}
+   {% assign current_article = article.id %}
+    {% assign current_topic_id = topic.id %}
+    <div id="side-nav">
+      <ul>
+        {% for topic in site.topics %}
+          {% if topic.article_count > 0 %}
+            {% if topic.id == current_topic_id %}
+              <li class="current">
+                <a href='{{ topic.public_articles_url }}'>{{ topic.name }}</a>
+                {% if page == "page_article" %}
+                  <ul>
+                  {% for article in topic.articles %}
+                      {% if article.id == current_article %}
+                        <li class="current"><a href="SITEURLGOESHERE/{{ article.public_url }}">{{ article.subject_plain }}</a></li>
+                      {% else %}
+                        <li><a href="SITEURLGOESHERE/{{ article.public_url }}">{{ article.subject_plain }}</a></li>
+                      {% endif %}
+                  {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% else %}
+              <li><a href='{{ topic.public_articles_url }}'>{{ topic.name }}</a></li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <!-- END INSIDE TOPIC/ARTICLE PAGE SIDEBAR NAV -->
