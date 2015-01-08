@@ -1,0 +1,75 @@
+<div id="content">
+  <div class="container search">
+    <div id="siteResults" class="hidden">
+      <div class="header row">
+        <div class="col-md-12">
+          <h2><span id="total"> </span> {{system.snippets.results_found_for}} "{{ search_term }}"</h2>
+        </div>
+      </div>
+      <div class="body row">
+        {% for brand in desk.brands %}
+          {% if brand.name == 'Home' %}{% continue %}{% endif %}
+          <div id="{{brand.id}}" class="results col-md-12">
+            <h2>{{brand.name}} <a href="#" class="view-all hidden">View All</a></h2>
+            <h3 class="hidden">0 Results for "{{search_term}}" in {{brand.name}} {{system.snippets.sorry_try_another_search}} <a href='{{desk.system.links.email}}'>{{system.snippets.send_us_an_email}}</a></h3>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="brandResults" class="hidden">
+      <div class="header row">
+        <div class="col-md-12">
+            <h2><i class="fa fa-search"></i> {{ number_search_results }} {{system.snippets.results_found_for}} "{{ search_term }}" in {{ desk.current_brand.name }}</h2>
+        </div>
+      </div>
+      {% for result in search_results %}
+          {% if result.class_name == "Article" %}
+            <div class="row result article">
+              <div class="col-md-12">
+                <h3>
+                  <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">{{ result.subject_plain }}</a>
+                </h3>
+                <p>{{ result.body_plain | clip:210 }}</p>
+              </div>
+            </div>
+          {% elsif result.class_name == "Question" %}
+            <div class="row result question">
+              <div class="col-md-1">
+                <span class="gravatar">
+                  {{ question.from_email | gravatar_image: gravatar_unknown_user, ssl }}
+                </span>
+              </div>
+              <div class="col-md-11">
+                <h3>
+                  <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">{{ result.subject_plain }}</a>
+                </h3>
+                <p>{{ result.body_plain | clip:210 }}</p>
+              </div>
+              <div class="col-md-12">
+                {% if result.answers_agent_count > 0 %}
+                 <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">
+                    <span>{{ result.answers_agent_count }}</span>
+                    {{ site.agent_name_config }}
+                    {{ system.snippets.answer | pluralize: result.answers_agent_count, system.snippets.answers }}
+                  </a>
+                {% elsif result.answers_customer_count > 0 %}
+                  <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">
+                    <span>{{ result.answers_customer_count }}</span>
+                    Community {{ system.snippets.answer | pluralize: result.answers_customer_count, system.snippets.answers }}
+                  </a>
+                {% else %}
+                    <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">View Question</a>
+                {% endif %}
+              </div>
+            </div> <!-- result row -->
+          {% endif %}
+      {% endfor %}
+      <div class="row footer">
+          <div id='pagination'>
+            {{ more_search_block }}
+          </div>
+      </div>
+    </div><!-- #RealResults -->
+  </div><!-- .container search -->
+</div><!-- #content-->
+<script type="text/javascript" src="PathToJsServer/js/multibrand.search.js"></script>
