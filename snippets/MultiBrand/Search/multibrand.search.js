@@ -22,9 +22,9 @@ jQuery(document).ready(function() {
             article_body = html.find(".article-autocomplete-body").html();
             if (resultsCount < displayLimit) {
               if (this.id.indexOf("questions") !== -1) {
-                auto_suggest_questions += '<li><a href="' + this.id + '&t=' + themeID +'" class="question">' + article_title + '</a></li><p>' + article_body +'</p>';
+                auto_suggest_questions += '<li><a href="' + this.id + '&t=' + themeID +'" class="question">' + article_title + '</a><p>' + article_body +'</p></li>';
               } else {
-                auto_suggest_articles += '<li><a href="' + this.id + '&t=' + themeID + '" class="article">' + article_title + '</a></li><p>' + article_body +'</p>';
+                auto_suggest_articles += '<li><a href="' + this.id + '&t=' + themeID + '" class="article">' + article_title + '</a><p>' + article_body +'</p></li>';
               }
             };
             resultsCount++;
@@ -55,8 +55,6 @@ jQuery(document).ready(function() {
           dataType: 'json'
         }).done(MultiSearch).fail(MultiFail);
     }); //END BRANDS & IDS
-
-
   //DISPLAY TOTAL NUMBER OF RESULTS
     setTimeout(function() {
       if (totalOver) {
@@ -65,8 +63,6 @@ jQuery(document).ready(function() {
         $('#total').append(totalCount);
       }
     }, 500);
-
-
   //CHECK URL PARAMETER
     function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
