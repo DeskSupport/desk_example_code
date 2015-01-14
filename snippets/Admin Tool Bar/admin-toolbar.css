@@ -1,0 +1,100 @@
+  header#Admin {
+    background: #009ddc;
+    color: #fff;
+    height: 45px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 999;
+  }
+  header#Admin .edit ul {margin:0px; list-style: none;}
+  header#Admin .edit ul li{
+    line-height: 45px;
+    border-right: 1px solid #0086bb;
+    border-left: 1px solid #00a8eb;
+    float: left;
+    padding: 0px 10px;
+  }
+  header#Admin .edit ul li:first-child {border-left: none;}
+  header#Admin .edit ul li:last-child {border-right: none;}
+  header#Admin .edit ul li i {color: #f7f7f7; margin-right: 10px;}
+  header#Admin .edit ul li a{
+    color: #fff;
+  }
+  header#Admin img.gravatar{
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+  }
+
+  header#Admin .btn-group.admin-menu {
+    height: 45px;
+    float: right;
+  }
+  header#Admin .btn-group.admin-menu .btn{
+    padding: 0px;
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  header#Admin .btn-group.admin-menu .btn.dropdown-toggle span.caret{
+    background: none;
+    border: none;
+    background: url(img/v3icons.png) no-repeat;
+    background-position: -404px -169px;
+    width: 14px;
+    height: 8px;
+    margin-top: 16px;
+    line-height: 45px;
+    display: block;
+    opacity: 0.5;
+  }
+  header#Admin .btn-group.admin-menu.open .btn.dropdown-toggle{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  header#Admin .btn-group.admin-menu.open .btn.dropdown-toggle span.caret{
+    opacity: 1;
+  }
+
+  header#Admin .btn-group.admin-menu ul.dropdown-menu {
+    border-radius: 4px !important;
+    border: 0;
+    background-color: #49505c;
+    color: #f7f7f7;
+    top: 55px;
+    min-width: 230px;
+    max-width: 600px;
+  }
+  header#Admin .btn-group.admin-menu ul.dropdown-menu li.arrow {
+    line-height: 0px;
+    top: -10px;
+    right: 24px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #49505c;
+  }
+  header#Admin .btn-group.admin-menu ul.dropdown-menu li.title {
+    color: #d6dadd;
+    margin: 15px 20px 10px;
+    padding: 0 0 12px;
+    font-size: 12px;
+    border-bottom: 2px solid #545c68;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  header#Admin .btn-group.admin-menu ul.dropdown-menu li a{
+    padding: 11px 20px;
+    color: #f7f7f7;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  header#Admin .btn-group.admin-menu ul.dropdown-menu li:hover a {
+    background: #009ddc;
+  }

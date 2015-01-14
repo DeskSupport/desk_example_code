@@ -1,0 +1,40 @@
+{% if current_user and current_user.is_guest == false and current_user.customer.email contains "@YOURSITESDOMAIN.com" %}
+  <header id="Admin">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 edit">
+          <div class="row">
+            <ul>
+              <li><i class="fa fa-gear"></i><a href="https://YOURSITEURL.desk.com/admin/content-management/articles?page=1&amp;search_filter=&amp;select_filter=&amp;brand_filter={{desk.current_brand.id}}">Edit Brand</a></li>
+              {% if page == "page_article" or page == "page_topic" %}
+              <li><i class="fa fa-list"></i><a href="https://YOURSITEURL.desk.com/admin/content-management/articles?select_filter={{topic.id}}">View Topic</a></li>
+              {% endif %}
+              {% if page == "page_article" %}
+              <li><i class="fa fa-edit"></i><a href="https://YOURSITEURL.desk.com/admin/content-management/articles/{{article.id}}/edit">Edit Article</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="btn-group admin-menu">
+              <button type="button" class="btn">{{ current_user.customer.email | gravatar_image: gravatar_unknown_user, ssl }}</button>
+              <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                <li class="arrow"></li>
+                <li class="title">{{ current_user.customer.name }}</li>
+                <li><a href="https://YOURSITEURL.desk.com/agent">Classic Agent<span></span></a></li>
+                <li><a href="https://YOURSITEURL.desk.com/web/agent/">Next Gen Agent<span></span></a></li>
+                <li><a href="https://YOURSITEURL.desk.com/web/reporting">Business Insights<span></span></a></li>
+                <li><a href="https://YOURSITEURL.desk.com/admin">Admin<span></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endif %}
