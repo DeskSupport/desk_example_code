@@ -36,7 +36,7 @@ $(function() {
         success: function(data) {
           apiSuccess(data, this.brandID, this.brandName);
           function apiSuccess(data, brandID, brandName) {
-            $('.autosuggest div#' + brandID).remove();
+            $('.autosuggest div#brand-' + brandID).remove();
             auto_suggest_content = "";
             auto_suggest = "";
             system_snippet_do_these_help = $('#system-snippets-do_these_help').text() || 'Do these help?';
@@ -57,18 +57,18 @@ $(function() {
               as_count++;
             });
             if (as_count > 9) {
-              $('.autosuggest').append('<div id="' + brandID + '"><h4 class="muted"><span>' + as_count + ' + </span>' + resultsFound + ' in ' + brandName + '</h4><ul class="unstyled"></ul>');
+              $('.autosuggest').append('<div id="brand-' + brandID + '"><h4 class="muted"><span>' + as_count + ' + </span>' + resultsFound + ' in ' + brandName + '</h4><ul class="unstyled"></ul>');
             } else {
-              $('.autosuggest').append('<div id="' + brandID + '"><h4 class="muted"><span>' + as_count + ' </span>' + resultsFound + ' in ' + brandName + '</h4><ul class="unstyled"></ul>');
+              $('.autosuggest').append('<div id="brand-' + brandID + '"><h4 class="muted"><span>' + as_count + ' </span>' + resultsFound + ' in ' + brandName + '</h4><ul class="unstyled"></ul>');
             }
             if (as_count > 0) {
-              $('.autosuggest div#' + brandID + ' ul').append(auto_suggest);
+              $('.autosuggest div#brand-' + brandID + ' ul').append(auto_suggest);
               if (as_count > 9) {
-                $('.autosuggest div#' + brandID + ' ul div').append('<li><a class="btn btn-primary" target="_blank" href="//' + document.domain.toString() + '/customer/' + systemLanguageDesk + '/portal/articles/search?b_id=' + brandID + '&q=' + search_query + '&displayMode=BrandOnly">View All</a></li>');
+                $('.autosuggest div#brand-' + brandID + ' ul div').append('<li><a class="btn btn-primary" target="_blank" href="//' + document.domain.toString() + '/customer/' + systemLanguageDesk + '/portal/articles/search?b_id=' + brandID + '&q=' + search_query + '&displayMode=BrandOnly">View All</a></li>');
               }
-              $('.autosuggest div#' + brandID + ' ul div').append('</div>');
+              $('.autosuggest div#brand-' + brandID + ' ul div').append('</div>');
               if(as_count > 3) {
-                $('.autosuggest div#' + brandID + ' ul').append('<button class="btn btn-primary coltrig">More</button>');
+                $('.autosuggest div#brand-' + brandID + ' ul').append('<button class="btn btn-primary coltrig">More</button>');
               }
               $(".autosuggest").removeClass('hide');
             } else {
