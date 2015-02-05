@@ -1,0 +1,12 @@
+{% if page == "page_article" %}
+  <h4>Related Articles</h4>
+  <div id="related_articles_container" >
+    <ul class="related">
+      {% for kb_article in topic.articles %}
+      {% unless kb_article.id == article.id %}
+        <li><a href="{{kb_article.public_url}}"><i class="fa fa-file-text-o"></i>{{kb_article.subject_plain}}</a></li>
+      {% endunless %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
