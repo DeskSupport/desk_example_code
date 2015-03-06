@@ -43,7 +43,6 @@ AutoSuggest = function() {
       success: function(data) {
         apiSuccess(data, this.brandID, this.brandName);
         function apiSuccess(data, brandID, brandName) {
-          if (brandID != 6346 || brandID != 7112) {
             $('#AutoSuggest div#brand-' + brandID).remove();
             auto_suggest_content = "";
             auto_suggest = "";
@@ -85,9 +84,8 @@ AutoSuggest = function() {
             } else {
               $('#AutoSuggest').hide();
             }
-          };
-        } // FUNCTION API SUCCESS
+        } // BRAND REQUEST
       } // SUCCESS
     }); // AJAX REQUEST
   });// FOR EACH BRAND
-} // ARTICLE SUGGESTION ON KEYUP FUNCTION
+}// ARTICLE SUGGESTION ON KEYUP FUNCTION

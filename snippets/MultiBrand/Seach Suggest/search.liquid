@@ -15,3 +15,24 @@
     </div><!-- #desk-search -->
 {% endif %}
 <!-- END SEARCH -->
+
+
+<!--  AutoSuggest
+//    This is where results populate to.
+//    Remains hidden until the user enters text into the search box.
+//    It then attaches it self to the bottom of the search box. -->
+<div id="AutoSuggest" class="ui-menu"></div>
+<!-- END Auto Suggest-->
+
+<!--  END DESK BRAND IDS/NAMEs
+//    This should be added in the layout section under 'desk-external-variables'
+//    Adjust the IDs in the if statment to reflect brands you don't want to use.
+//    For example: the 'Home' brand -->
+  <div id="desk-brands">
+    {% for brand in desk.brands %}
+      {% if brand.id != 5555 and brand.id != 5555 %}
+        <div id="{{brand.id}}">{{brand.name}}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+<!-- END DESK BRAND IDS/NAMEs -->
