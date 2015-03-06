@@ -1,0 +1,17 @@
+<!-- SEARCH -->
+{% if page == "myportal_index" or page == "myaccount" or page == "login" or page == "registration" or page == "authentication_verification" or page == "forgot_password" or page == "authentication_verification" %} {% else %}
+    <div id="search" class="hidden-phone">
+      <div class="container">
+        <div class="row">
+          {{ search_form_begin }}
+          <div class="col-md-12">
+            {{template_form_params}}
+            <input type="text" id="qMB" name="q" maxlength="100" value="" placeholder="{{system.snippets.have_a_question}}" class="input-xlarge form-control" autocomplete="off" />
+            <button type="submit" class="button button-primary" id="support-search-submit" value="{{system.snippets.search}}">{{system.snippets.search}}</button>
+          </div>
+          {{ search_form_end }}
+        </div>
+      </div><!-- Search Container -->
+    </div><!-- #desk-search -->
+{% endif %}
+<!-- END SEARCH -->

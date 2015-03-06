@@ -1,0 +1,112 @@
+/* -----------------------------------------------------------
+ SEARCH STYLES ------ (search input box)
+----------------------------------------------------------- */
+  #search {
+   background:none;
+   border-bottom: none;
+
+  }
+  #search .container {
+
+  }
+  #search input#qMB {
+    height: 60px;
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    border-radius: 40px;
+    border: none;
+    padding: 0px 30px;
+    line-height: 60px;
+    color: #fff;
+    z-index: 998;
+    -webkit-transition: ease all 1s;
+    -o-transition: ease all 1s;
+    transition: ease all 1s;
+  }
+  #search #support-search-submit {
+    color:#8b8b8b;
+    background: none;
+    border:  none;
+    font-size: 24px;
+    position: absolute;
+    right: 35px;
+    top: 17px;
+    z-index: 999;
+
+    outline: none;
+    opacity: 0.5;
+  }
+  #search #support-search-submit:hover, #search input[type=submit]:hover, #search button:hover{
+    background: none;
+    color: #fff;
+    transition: oacity 0.25s ease;
+
+  }
+  #search input[type=submit]:hover,#search input[type=submit]:focus,
+  .btn.btn-primary:hover,#search button:hover,#search button:focus {
+   opacity: 1;
+  }
+
+  #search input#qMB:focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  ::-webkit-input-placeholder,
+  :-moz-placeholder,
+  ::-moz-placeholder,
+  :-ms-input-placeholder  {
+    transition: opacity 0.25s ease;
+    opacity: 0.5;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 24px;
+  }
+  [placeholder]:focus::-webkit-input-placeholder {
+    transition: opacity 0.25s ease;
+    opacity: 0.33;
+  }
+/* -----------------------------------------------------------
+MultiBrand Search Auto Complete ------ (auto complete styles)
+----------------------------------------------------------- */
+  .ui-menu {
+    background: #373F48;
+    box-shadow: none;
+    padding: 10px;
+    margin: 0;
+    -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, .24);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, .24);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, .24);
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    position: absolute;
+    z-index: 999;
+    display: none;
+  }
+  .ui-menu a.btn {float: right;}
+  .ui-menu h4 {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    float: left;
+    font-size: 18px;
+    color: #D8DCDD;
+    line-height: 21px;
+  }
+  .ui-menu ul {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .ui-menu ul li {display: inline-block; width: 100%;}
+  .ui-menu ul li:before {display: none;}
+  .ui-menu ul li a {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #878B91;
+    line-height: 32px;
+  }
+  .ui-menu ul li i {margin-right: 15px;}
