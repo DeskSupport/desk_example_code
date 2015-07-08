@@ -4,7 +4,7 @@
       <div class="col-md-8 {% if desk.page.theme.layout != 'left' %} col-md-push-4 {% endif %}">
         <div class="header row">
           <div class="col-md-12">
-              <h2><i class="fa fa-search"></i> <span id="total"></span> {{system.snippets.results_found_for}} "{{ search_term }}"</h2>
+              <h2><i class="fa fa-search"></i> <span id="total"></span> {{system.snippets.results_found_for}} "{{ search_term }}"</h2>}
           </div>
         </div>
         <!-- Start - Dont Edit between these lines -->
@@ -20,51 +20,61 @@
         </div>
         <!-- End - Don't Edit between these lines -->
         <div id="brandResults" class="hidden">
-          {% for result in search_results %}
-            {% if result.class_name == "Article" %}
-              <article class="row result article">
+          <div class="body row nomarg">
+            {% for result in search_results %}
+              {% if result.class_name == "Article" %}
+                <article class="row result article">
+                  <div class="col-md-12">
+                    <h3>
+                      <a href='{{ result.public_url }}' title="{{ result.subject_plain }}"><span>{{ result.subject_plain }}</span></a>
+                    </h3>
+                    {% if MBSearchPage == true %}<label class="{{desk.current_brand.name}}">{{desk.current_brand.name}}</label>{% endif %}
+                    <p>{{ result.body_plain | clip:210 }}</p>
+                    <a href="{{ result.public_url }}" class="btn btn-pill">{{ system.snippets.read_article }}</a>
+                  </div>
+                </article>
+              {% elsif result.class_name == "Question" and MBSearchExcludeQuestions != true %}
+                <article class="row result question">
+                  <div class="col-md-1">
+                    <span class="gravatar">
+
+                      {{ question.from_email | gravatar_image: gravatar_unknown_user, ssl }}
+                    </span>
+                  </div>
+                  <div class="col-md-11">
+                    <h3>
+                      <a href='{{ result.public_url }}' title="{{ result.subject_plain }}"><span>{{ result.subject_plain }}</span></a>
+                    </h3>
+                    {% if MBSearchPage == true %}<label class="{{desk.current_brand.name}}">{{desk.current_brand.name}}</label>{% endif %}
+                    <p>{{ result.body_plain | clip:210 }}</p>
+                  </div>
+                  <div class="col-md-12">
+                    {% if result.answers_agent_count > 0 %}
+                     <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">
+                        <span>{{ result.answers_agent_count }}</span>
+                        {{ site.agent_name_config }}
+                        {{ system.snippets.answer | pluralize: result.answers_agent_count, system.snippets.answers }}
+                      </a>
+                    {% elsif result.answers_customer_count > 0 %}
+                      <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">
+                        <span>{{ result.answers_customer_count }}</span>
+                        Community {{ system.snippets.answer | pluralize: result.answers_customer_count, system.snippets.answers }}
+                      </a>
+                    {% else %}
+                        <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">View Question</a>
+                    {% endif %}
+                  </div>
+                </article> <!-- article row -->
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="row footer">
+              <div id='pagination'>
                 <div class="col-md-12">
-                  <h3>
-                    <a href='{{ result.public_url }}' title="{{ result.subject_plain }}"><span>{{ result.subject_plain }}</span></a>
-                  </h3>
-                  {% if MBSearchPage == true %}<label class="{{desk.current_brand.name}}">{{desk.current_brand.name}}</label>{% endif %}
-                  <p>{{ result.body_plain | clip:210 }}</p>
-                  <a href="{{ result.public_url }}" class="btn btn-pill">{{ system.snippets.read_article }}</a>
+                    {{ more_search_block }}
                 </div>
-              </article>
-            {% elsif result.class_name == "Question" and MBSearchExcludeQuestions != true %}
-              <article class="row result question">
-                <div class="col-md-1">
-                  <span class="gravatar">
-                    {{ question.from_email | gravatar_image: gravatar_unknown_user, ssl }}
-                  </span>
-                </div>
-                <div class="col-md-11">
-                  <h3>
-                    <a href='{{ result.public_url }}' title="{{ result.subject_plain }}"><span>{{ result.subject_plain }}</span></a>
-                  </h3>
-                  {% if MBSearchPage == true %}<label class="{{desk.current_brand.name}}">{{desk.current_brand.name}}</label>{% endif %}
-                  <p>{{ result.body_plain | clip:210 }}</p>
-                </div>
-                <div class="col-md-12">
-                  {% if result.answers_agent_count > 0 %}
-                   <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">
-                      <span>{{ result.answers_agent_count }}</span>
-                      {{ site.agent_name_config }}
-                      {{ system.snippets.answer | pluralize: result.answers_agent_count, system.snippets.answers }}
-                    </a>
-                  {% elsif result.answers_customer_count > 0 %}
-                    <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">
-                      <span>{{ result.answers_customer_count }}</span>
-                      Community {{ system.snippets.answer | pluralize: result.answers_customer_count, system.snippets.answers }}
-                    </a>
-                  {% else %}
-                      <a href='{{ result.public_url }}' class="btn btn-pill" title="{{ result.subject_plain }}">View Question</a>
-                  {% endif %}
-                </div>
-              </article> <!-- article row -->
-            {% endif %}
-          {% endfor %}
+              </div>
+          </div>
         </div>
         <!-- No Results -->
         {% if number_search_results == 0 %}
@@ -74,20 +84,17 @@
             </div>
           </div>
         {% endif %}
-        <!-- pagination -->
-        <div class="row footer">
-            <div id='pagination'>
-            {{ more_search_block }}
-            </div>
-        </div>
       </div><!-- End 8 Column -->
       <!--Begin Sidebar-->
-      {{ sidebar_main }}
+      <!-- SIDEBAR GOES HERE IF NEEDED -->
       <!--END Sidebar-->
     </div><!-- main row -->
   </div><!-- .container results -->
 </div><!-- #content-->
-<!-- Either keep here are move to bottom of layout/body section -->
+
+<!-- /////////////////////////////////////////////////////
+Either keep here are move to bottom of layout/body section 
+///////////////////////////////////////////////////////// -->
 <div id="ThemeOptions" class="hidden" style="display:none;">
   <div id="brand_id">{{ desk.current_brand.id }}</div>
   <div id="site-brands">
