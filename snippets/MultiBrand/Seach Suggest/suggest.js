@@ -6,29 +6,29 @@ $(function() {
         clearTimeout(window.timer);
         window.timer=setTimeout(function(){ // setting the delay for each keypress
           var position = $('#qMB').offset();
-          position.top = position.top + $('#qMB').height();
+          position.top = position.top + $('#qMB').outerHeight() - 1;
           marginLeft = $('#qMB').css('padding-left');
           searchWidth = $('#qMB').width();
-          $('#AutoSuggest').css(position);
-          $('#AutoSuggest').css('width', searchWidth);
-          $('#AutoSuggest').css('margin-left', marginLeft);
-          AutoSuggest();
+          $('#SearchAutoSuggest').css(position);
+          $('#SearchAutoSuggest').css('width', searchWidth);
+          $('#SearchAutoSuggest').css('margin-left', marginLeft);
+          SearchAutoSuggest();
         }, 500);
       }
     });
 });
 /* HIDE ON CLICK OFF */
 $(document).mouseup(function (e) {
-    var container = $("#AutoSuggest");
+    var container = $("#SearchAutoSuggest");
     if (!container.is(e.target)
         && container.has(e.target).length === 0)
     {
         container.hide();
     }
 });
-//-- MULTIBRAND AUTO SUGGEST
-AutoSuggest = function() {
-  $('#desk-brands > div').each( function(i,e) {
+//-- MULTIBRAND SEARCH SUGGEST
+SearchAutoSuggest = function() {
+  $('#site-brands > div').each( function(i,e) {
     systemLanguageDesk = $('#system_language').html();
     resultsFound = $('#results_mobile').html();
     brandID = e.id;
@@ -43,7 +43,7 @@ AutoSuggest = function() {
       success: function(data) {
         apiSuccess(data, this.brandID, this.brandName);
         function apiSuccess(data, brandID, brandName) {
-            $('#AutoSuggest div#brand-' + brandID).remove();
+            $('#SearchAutoSuggest div#brand-' + brandID).remove();
             auto_suggest_content = "";
             auto_suggest = "";
             system_snippet_do_these_help = $('#system-snippets-do_these_help').text() || 'Do these help?';
@@ -61,28 +61,28 @@ AutoSuggest = function() {
               as_count++;
             });
             if (as_count > 0) {
-              $('#AutoSuggest').show();
+              $('#SearchAutoSuggest').show();
               if (as_count > 9) {
-                $('#AutoSuggest').append(' ' +
+                $('#SearchAutoSuggest').append(' ' +
                    '<div id="brand-' + brandID + '">' +
                     '<h4 class="muted"><span>' + as_count + ' + </span>' + resultsFound + ' in ' + brandName + '</h4>' +
-                    '<a class="btn btn-primary" target="_blank" href="//' + document.domain.toString() + '/customer/' + systemLanguageDesk + '/portal/articles/search?b_id=' + brandID + '&q=' + search_query + '&displayMode=BrandOnly">View All</a>' +
+                    '<a class="btn btn-submit" target="_blank" href="//' + document.domain.toString() + '/customer/' + systemLanguageDesk + '/portal/articles/search?b_id=' + brandID + '&q=' + search_query + '">View All</a>' +
                     '<ul class="unstyled"></ul>'
                   );
               } else {
-                $('#AutoSuggest').append(
+                $('#SearchAutoSuggest').append(
                   '<div id="brand-' + brandID + '">' +
                     '<h4 class="muted"><span>' + as_count + ' </span>' + resultsFound + ' in ' + brandName + '</h4>' +
-                    '<a class="btn btn-primary" target="_blank" href="//' + document.domain.toString() + '/customer/' + systemLanguageDesk + '/portal/articles/search?b_id=' + brandID + '&q=' + search_query + '&displayMode=BrandOnly">View All</a>' +
+                    '<a class="btn btn-submit" target="_blank" href="//' + document.domain.toString() + '/customer/' + systemLanguageDesk + '/portal/articles/search?b_id=' + brandID + '&q=' + search_query + '">View All</a>' +
                     '<ul class="unstyled"></ul>'
                   );
               }
               if (as_count > 0) {
-                $('#AutoSuggest div#brand-' + brandID + ' ul').append(auto_suggest + '</div>');
+                $('#SearchAutoSuggest div#brand-' + brandID + ' ul').append(auto_suggest + '</div>');
               } // IF SUGGESTIONS
               as_count = 0;
             } else {
-              $('#AutoSuggest').hide();
+              $('#SearchAutoSuggest').hide();
             }
         } // BRAND REQUEST
       } // SUCCESS
