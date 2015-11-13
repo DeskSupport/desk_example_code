@@ -1,0 +1,89 @@
+<div role="main" class="container index video">
+  <div class="row">
+    <div class="col-lg-3 col-md-5 col-sm-6">
+      <ul class="video-player">
+        {% assign active = true %}
+        {%for topic in topics%}
+          {% if topic.article_count > 0 %}
+            {% if active == true %}
+            <li class="active">
+                <h4 class="active">{{ topic.name }} <i class="fa fa-sort-down"></i></h4>
+                <ul class="articles active">
+                  {% for article in topic.articles %}
+                      {% assign keywords_array = article.keywords | split: ',' %}
+                      {% for keyword in keywords_array %}
+                        
+                        {% if keyword contains 'vid=' %}
+                          <li class="vimeo"><button  data-id="{{article.id}}" class="btn btn-default {% if active == true %} btn-primary {% endif %}" data-title="{{ article.subject_plain }}" data-vimeo="{{ keyword | remove:'vid=' }}"><span>{{ article.subject_plain }}</span><i class="fa fa-play-circle {% if active != true %} hidden {% endif %} "></i></button></li>
+                        {% elsif keyword contains 'yid=' %}
+                          <li class="youtube"><button  data-id="{{article.id}}" class="btn btn-default {% if active == true %} btn-primary {% endif %}" data-title="{{ article.subject_plain }}" data-youtube="{{ keyword | remove:'yid=' }}"><span>{{ article.subject_plain }}</span><i class="fa fa-play-circle {% if active != true %} hidden {% endif %}"></i></button></li>
+                        {% endif %}
+                        {% assign active = flase %}
+                      {% endfor %}                         
+                    {% endfor %}
+                </ul>
+            </li>
+            {% assign active = flase %}
+          {% else %}
+            <li>
+                <h4>{{ topic.name }} <i class="fa fa-plus"></i></h4>
+                <ul class="articles">
+                  {% for article in topic.articles %}
+                      {% assign keywords_array = article.keywords | split: ',' %}
+                      {% for keyword in keywords_array %}
+                        {% if keyword contains 'vid=' %}
+                          <li class="vimeo"><button class="btn btn-default" data-id="{{article.id}}" data-title="{{ article.subject_plain }}" data-vimeo="{{ keyword | remove:'vid=' }}"><span>{{ article.subject_plain }}</span><i class="fa fa-play-circle hidden"></i></button></li>
+                        {% elsif keyword contains 'yid=' %}
+                          <li class="youtube"><button class="btn btn-default" data-id="{{article.id}}" data-title="{{ article.subject_plain }}" data-youtube="{{ keyword | remove:'yid=' }}"><span>{{ article.subject_plain }}</span><i class="fa fa-play-circle hidden"></i></button></li>
+                        {% endif %}
+                      {% endfor %}                         
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endif %}
+          {%endif%}
+        {%endfor%}
+        </ul>
+    </div>
+    <div class="col-lg-9 col-md-7 col-sm-6">
+        <h1 class="header"> Browse Videos</h1>
+        <div class="embed-responsive embed-responsive-16by9">
+        {% assign active = true %}
+          {%for topic in topics%}
+            {% if topic.article_count > 0 %}
+              {% if active == true %}
+                {% for article in topic.articles %}
+                  {% if active == true %}
+                    {% assign keywords_array = article.keywords | split: ',' %}
+                    {% for keyword in keywords_array %}
+                      {% if keyword contains 'vid=' %}
+                        <iframe id="VideoPlayer" class="embed-responsive-item"  src="https://player.vimeo.com/video/{{ keyword | remove:'vid=' }}?autoplay=0&color=009ddc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                      {% elsif keyword contains 'yid=' %}
+                        <iframe id="VideoPlayer" class="embed-responsive-item"  src="https://www.youtube.com/embed/{{ keyword | remove:'yid=' }}?autoplay=0&color=009ddc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                      {% endif %}
+                      {% assign active = flase %}
+                    {% endfor %}
+                  {% endif %}                        
+                {% endfor %}
+                {% assign active = flase %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% assign active = true %}
+        {%for topic in topics%}
+          {% if topic.article_count > 0 %}
+            
+                  {% for article in topic.articles %}
+                      {% if active == true %}
+                        <div id="{{article.id }}" class="panel panel-default">{{ article.body }}</div>
+                        {% assign active = flase %}
+                      {% else %}
+                        <div id="{{article.id }}" class="panel panel-default hidden">{{ article.body }}</div>
+                      {% endif %}
+                  {% endfor %}
+            {% endif %}
+        {%endfor%}
+    </div>
+  </div>
+</div>

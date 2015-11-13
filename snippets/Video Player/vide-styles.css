@@ -1,0 +1,72 @@
+#content .container.index.video .embed-responsive {
+    margin-bottom: 5px;
+}
+
+#content .container.index.video .panel-default {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #333;
+    border: 0;
+    background-color: #F9F9F9;
+    padding: 20px 15px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    text-shadow: none;
+}
+
+#content .container.index.video .panel-default h1,
+#content .container.index.video .panel-default h2,
+#content .container.index.video .panel-default h3,
+#content .container.index.video .panel-default h4,
+#content .container.index.video .panel-default h5,
+#content .container.index.video .panel-default h6 {
+    color: #333;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#content .container.index.video .panel-default p,
+#content .container.index.video .panel-default a {
+    color: #333;
+    font-size: 13px;
+}
+
+#content .container.index.video .panel-default a {
+    color: #009DDC;
+}
+
+#content .container.index.video .video-player {}
+
+#content .container.index.video .video-player h4 i {
+    float: right;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#content .container.index.video .video-player ul {
+    display: none;
+}
+
+#content .container.index.video .video-player ul.active {
+    list-style: none;
+    display: block;
+}
+
+#content .container.index.video .video-player ul li {
+    margin-bottom: 5px;
+}
+
+#content .container.index.video .video-player ul li button.btn {
+    width: 100%;
+    text-align: left;
+    white-space: normal;
+}
+
+#content .container.index.video .video-player ul li button.btn span {}
+
+#content .container.index.video .video-player ul li button.btn.btn-primary span {}
+
+#content .container.index.video .video-player ul li button i {
+    float: right;
+    line-height: 1.45;
+}
