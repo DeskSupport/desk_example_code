@@ -1,0 +1,25 @@
+{% if system.language == "es"}
+  <header id="main-header">
+    <div class="row">
+      <div class="columns large-12">
+        <h1>Spanish Header</h1>
+      </div>
+    </div>
+  </header>
+{% elsif system.language == "de"}
+  <header id="main-header">
+    <div class="row">
+      <div class="columns large-12">
+        <h1>German Header</h1>
+      </div>
+    </div>
+  </header>
+{% else %}
+  <header id="main-header">
+    <div class="row">
+      <div class="columns large-12">
+        <h1>English Header</h1>
+      </div>
+    </div>
+  </header>
+{% endif %}
