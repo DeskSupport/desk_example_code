@@ -1,0 +1,110 @@
+<div id="content">
+  <div class="container search" role="main">
+    <div class="row">
+      <div class="col-md-9">
+        <div id="siteResults" class="hidden">
+          <div class="page-heading row">
+            <div class="col-md-12">
+              <h2><i class="fa fa-search"></i> <span id="total"> </span> {{system.snippets.results_found_for}} "{{ search_term }}"</h2>
+            </div>
+          </div>
+          <!-- Start - Dont Edit between these lines -->
+          <div class="body row">
+            <div class="col-md-12">
+              <div role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist"></ul>
+                <div class="tab-content">
+                  <div class="footer">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End - Don't Edit between these lines -->
+        </div>
+        <div id="brandResults" class="hidden">
+          <div class="body row">
+            <div class="col-md-12 results-all">
+              {% for result in search_results %}
+                  {% if result.class_name == "Article" %}
+                      <article class="article-support">
+                        {% if desk.current_brand.name == "Videos" %}
+                          <h2 class="article-title">
+                            <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">{{ result.subject_plain | remove:'video::' }} <label class="video"><i class="fa fa-video-camera"></i>Video</label></a>
+                          </h2>
+                        {% elsif result.subject_plain contains 'video' %}
+                          <h2 class="article-title">
+                            <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">{{ result.subject_plain | remove:'video::' }} <label class="video"><i class="fa fa-video-camera"></i>Video</label></a>
+                          </h2>
+                        {% else %}
+                          <h2 class="article-title">
+                            <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">{{ result.subject_plain | remove:'video::' }} </a>
+                          </h2>
+                        {% endif %}
+                        <p class='article-meta'>{{system.snippets.last_update}} - {{ result.updated_at | in_time_zone: site.timezone | date: '%b %d, %Y %I:%M%p %Z' }}</p>
+                        <p class="preview">{{ result.body_plain | clip:250 }} <a href="{{ result.public_url }}">{{ system.snippets.read_article }}</a></p>
+                     </article>
+                  {% elsif result.class_name == "Question" %}
+                    <article class="article-support row question">
+                      <div class="col-md-1">
+                        <span class="gravatar">
+                          {{ question.from_email | gravatar_image: gravatar_unknown_user, ssl }}
+                        </span>
+                      </div>
+                      <div class="col-md-11">
+                        <h2 class="article-title">
+                          <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">{{ result.subject_plain }}</a>
+                        </h2>
+                        <h3>{{desk.current_brand.name}}</h3>
+                        <p>{{ result.body_plain | clip:400 }}
+                          {% if result.answers_agent_count > 0 %}
+                           <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">
+                              <span>{{ result.answers_agent_count }}</span>
+                              {{ site.agent_name_config }}
+                              {{ system.snippets.answer | pluralize: result.answers_agent_count, system.snippets.answers }}
+                            </a>
+                          {% elsif result.answers_customer_count > 0 %}
+                            <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">
+                              <span>{{ result.answers_customer_count }}</span>
+                              Community {{ system.snippets.answer | pluralize: result.answers_customer_count, system.snippets.answers }}
+                            </a>
+                          {% else %}
+                              <a href='{{ result.public_url }}' title="{{ result.subject_plain }}">View Question</a>
+                          {% endif %}
+                        </p>
+                      </div>
+                    </article> <!-- article row -->
+                  {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="row footer">
+              <div id='pagination'>
+                {{ more_search_block }}
+              </div>
+          </div>
+        </div><!-- #RealResults -->
+      </div><!-- Column -->
+      {{ sidebar_article }}
+    </div>
+  </div><!-- .container search -->
+</div><!-- #content-->
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////
+                    MB TAB ICONS SEARCH JS, OR PUT INLINE JS FILE HERE 
+/////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<script type="text/javascript" src="PATH-TO-SELF-HOSTED-JS-FOLDER/search.js"></script>
+
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////
+      Either keep here are move to bottom of layout/body section if its not there already
+/////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div id="ThemeOptions" class="hidden" style="display:none;">
+  <div id="brand_id">{{ desk.current_brand.id }}</div>
+  <div id="site-brands">
+    {% for brand in desk.brands %}
+       <div id="{{brand.id}}">{{brand.name}}</div>
+    {% endfor %}
+  </div>
+</div>
