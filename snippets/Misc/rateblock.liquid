@@ -1,0 +1,49 @@
+<div id="rateBlock" class="row">
+    <div id="article-id" class="hide" style="display:none;">{{article.id }}</div>
+    <div class="col-md-12">
+        {%if system.snippets.was_article_helpful != "" %}
+        <h4>{{system.snippets.was_article_helpful}}</h4>
+        {% else %}
+        <h4>{{ system.snippets.did_you_find_this_article_helpful }}</h4>
+        {% endif %}
+        <div class="rating">
+            <h6 class="already hide">You already voted, Thanks!</h6>
+            <h6 class="thanks hide">{{system.snippets.thank_you}}</h6>
+            <ul class="vote hide unstyled">
+                <li><a href="/customer/{{system.language}}/portal/articles/{{article.id}}/rate?rating=1" class="btn btn-primary up" data-method="post" data-remote="true" rel="nofollow">{{system.snippets.yes}} <i class="fa fa-thumbs-up"></i></a></li>
+                <li><a href="/customer/{{system.language}}/portal/articles/{{article.id}}/rate?rating=0" class="btn btn-warning down" data-method="post" data-remote="true" rel="nofollow">{{system.snippets.no}} <i class="fa fa-thumbs-down"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function deskEV(v) {
+    v = v.replace(/\./g, '-');
+    return $('#' + v).html();
+}
+$(document).ready(function() {
+    var articleID = deskEV('article-id');
+    var brandID = deskEV('brand-id');
+    if (brandID == null) {
+        $.get('//' + document.domain.toString() + '/customer/en/portal/articles/' + articleID + '/is_rateable.json?', function(json) {
+            if (json.is_rateable) {
+                $("#rateBlock .vote").removeClass('hide');
+            } else {
+                $("#rateBlock .already").removeClass('hide');
+            }
+        });
+    } else {
+        $.get('//' + document.domain.toString() + '/customer/en/portal/articles/' + articleID + '/is_rateable.json?b_id=' + brandID, function(json) {
+            if (json.is_rateable) {
+                $("#rateBlock .vote").removeClass('hide');
+            } else {
+                $("#rateBlock .already").removeClass('hide');
+            }
+        });
+    }
+    $('#rateBlock .up, #rateBlock .down').on('click', function() {
+        $("#rateBlock .vote").addClass('hide');
+        $("#rateBlock .thanks").removeClass('hide');
+    });
+});
+</script>
