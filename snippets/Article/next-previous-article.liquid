@@ -1,0 +1,27 @@
+{% for current_article in topic.articles %}
+  {% if current_processed == true %}
+    {% assign next_article = current_article %}
+    {% assign current_processed = false %}
+  {% endif %}
+  {% if current_article.subject_plain == article.subject_plain %}
+    {% assign current_processed = true %}
+    {% assign previous_article = last_processed %}
+  {% endif %}
+  {% assign last_processed = current_article %}
+{% endfor %}
+
+<br>
+<hr>
+{% if previous_article %}
+  <a href="{{ previous_article.public_url }}" title="{{ previous_article.subject_plain }}">Previous Article</a>
+{% else %}
+  <span style="opacity: 0.5">Previous Article</span>
+{% endif %}
+
+{% if next_article %}
+  <a style="float: right;" href="{{ next_article.public_url }}" title="{{ next_article.subject_plain }}">Next Article</a>
+{% else %}
+  <span style="float: right; opacity: 0.5">Next Article</span>
+{% endif %}
+<hr>
+<br>
